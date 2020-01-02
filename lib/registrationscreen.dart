@@ -95,7 +95,7 @@ class RegisterWidgetState extends State<RegisterWidget> {
                     fit: BoxFit.fill,
                   )),
             )),
-        Text('Click on image above to take profile picture'),
+        Text('Click on image above to add a profile picture'),
         new TextFormField(
             controller: _emcontroller,
             autovalidate: _autoValidate,
@@ -190,8 +190,6 @@ class RegisterWidgetState extends State<RegisterWidget> {
             ),
           );
         });
-   // _image = await ImagePicker.pickImage(source: ImageSource.camera,imageQuality: 80,maxHeight: 450,maxWidth: double.infinity);
-    //setState(() {});
     //_image = await ImagePicker.pickImage(source: ImageSource.gallery);
   }
 

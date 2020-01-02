@@ -61,8 +61,8 @@ class _MainScreenState extends State<MainScreen> {
             icon: Icon(Icons.assignment),
             title: Text("Purchases"),
           ),
-         /* BottomNavigationBarItem(
-            icon: Icon(Icons.directions_bus, ),
+           /*BottomNavigationBarItem(
+            icon: Icon(Icons.directions_bus),
             title: Text("Delivery"),
           ),*/
           BottomNavigationBarItem(

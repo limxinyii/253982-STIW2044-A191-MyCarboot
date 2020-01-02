@@ -86,7 +86,8 @@ class _TabScreen4State extends State<TabScreen4> {
                                 height: 10,
                               ),
                               GestureDetector(
-                                onTap: _takePicture,
+                                // onTap: _takePicture,
+                                onTap: _choose,
                                 child: Container(
                                     width: 150.0,
                                     height: 150.0,
@@ -151,12 +152,14 @@ class _TabScreen4State extends State<TabScreen4> {
                                     Icons.credit_card,
                                     color: Colors.orangeAccent,
                                   ),
-                                  title: Text("You have " +
-                                          widget.user.credit +
-                                          " Credit" ??
-                                      "You have 0 Credit",
-                                        style: TextStyle(
-                                      fontFamily: 'Source Sans Pro'),),
+                                  title: Text(
+                                    "You have " +
+                                            widget.user.credit +
+                                            " Credit" ??
+                                        "You have 0 Credit",
+                                    style: TextStyle(
+                                        fontFamily: 'Source Sans Pro'),
+                                  ),
                                 ),
                               ),
                               Card(
@@ -168,9 +171,11 @@ class _TabScreen4State extends State<TabScreen4> {
                                     Icons.location_on,
                                     color: Colors.orangeAccent,
                                   ),
-                                  title: Text(_currentAddress,
+                                  title: Text(
+                                    _currentAddress,
                                     style: TextStyle(
-                                      fontFamily: 'Source Sans Pro'),),
+                                        fontFamily: 'Source Sans Pro'),
+                                  ),
                                 ),
                               ),
                               SizedBox(
@@ -271,16 +276,243 @@ class _TabScreen4State extends State<TabScreen4> {
         ));
   }
 
+  void _choose() async {
+    /*if (widget.user.name == "not register") {
+      Toast.show("Not allowed, please login", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }*/
+    showModalBottomSheet(
+        elevation: 1,
+        context: context,
+        builder: (builder) {
+          return Container(
+            padding: EdgeInsets.all(10),
+            child: Wrap(
+              children: <Widget>[
+                ListTile(
+                    leading: Icon(
+                      Icons.account_circle,
+                      color: Colors.black,
+                    ),
+                    title: Text('View Profile Picture'),
+                    onTap: () async {
+                      Navigator.pop(context);
+                      Hero(
+                        tag: 'Profile Picture',
+                        child: Image.network(
+                            "http://myondb.com/myapp/profile/${widget.user.email}.jpg?dummy=${(number)}'"),
+                      );
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailScreen(user: widget.user)));
+                      setState(() {});
+                    }),
+                Divider(
+                  thickness: 0,
+                  color: Colors.grey[400],
+                  indent: 0,
+                ),
+                ListTile(
+                  leading: Icon(Icons.camera_alt, color: Colors.black),
+                  title: Text('Camera'),
+                  onTap: () async {
+                    if (widget.user.name == "not register") {
+                      Toast.show("Not allowed", context,
+                          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                      return;
+                    }
+                    String base64Image;
+                    try {
+                      Navigator.of(context).pop();
+                      _image = await ImagePicker.pickImage(
+                          source: ImageSource.camera,
+                          imageQuality: 60,
+                          maxWidth: double.infinity,
+                          maxHeight: 450);
+
+                      base64Image = base64Encode(_image.readAsBytesSync());
+                    } catch (e) {
+                      print(e);
+                    }
+                    http.post(urluploadImage, body: {
+                      "encoded_string": base64Image,
+                      "email": widget.user.email,
+                    }).then((res) {
+                      print(res.body);
+                      if (res.body == "success") {
+                        setState(() {
+                          number = new Random().nextInt(100);
+                          print(number);
+                        });
+                      } else {}
+                    }).catchError((err) {
+                      print(err);
+                    });
+
+                  },
+                ),
+                Divider(
+                  thickness: 0,
+                  color: Colors.grey[400],
+                  indent: 0,
+                ),
+                ListTile(
+                  leading: Icon(Icons.photo_album, color: Colors.black),
+                  title: Text('Gallery'),
+                  onTap: () async {
+                    if (widget.user.name == "not register") {
+                      Toast.show("Not allowed", context,
+                          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                      return;
+                    }
+                    String base64Image;
+                    try {
+                      Navigator.of(context).pop();
+                      _image = await ImagePicker.pickImage(
+                          source: ImageSource.gallery,
+                          imageQuality: 80,
+                          maxWidth: double.infinity,
+                          maxHeight: 450);
+
+                      base64Image = base64Encode(_image.readAsBytesSync());
+                    } catch (e) {
+                      print(e);
+                    }
+                    http.post(urluploadImage, body: {
+                      "encoded_string": base64Image,
+                      "email": widget.user.email,
+                    }).then((res) {
+                      print(res.body);
+                      if (res.body == "success") {
+                        setState(() {
+                          number = new Random().nextInt(100);
+                          print(number);
+                        });
+                      } else {}
+                    }).catchError((err) {
+                      print(err);
+                    });
+                  },
+                )
+              ],
+            ),
+          );
+        });
+    /*showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            color: Color(0xFF737373),
+            height: 180,
+            child: Container(
+              child: _buildBottomNavigationMenu(),
+              decoration: BoxDecoration(
+                color: Theme.of(context).canvasColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(10),
+                  topRight: const Radius.circular(10),
+                ),
+              ),
+            ),
+          );
+        });*/
+    /*showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Take new profile picture?"),
+          content: new Text("Are your sure?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Yes"),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                _image =
+                    await ImagePicker.pickImage(source: ImageSource.camera);
+
+                String base64Image = base64Encode(_image.readAsBytesSync());
+                http.post(urluploadImage, body: {
+                  "encoded_string": base64Image,
+                  "email": widget.user.email,
+                }).then((res) {
+                  print(res.body);
+                  if (res.body == "success") {
+                    setState(() {
+                      number = new Random().nextInt(100);
+                      print(number);
+                    });
+                  } else {}
+                }).catchError((err) {
+                  print(err);
+                });
+              },
+            ),
+            new FlatButton(
+              child: new Text("No"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );*/
+  }
+
+  /*Column _buildBottomNavigationMenu() {
+    return Column(
+      children: <Widget>[
+        ListTile(
+            leading: Icon(Icons.people),
+            title: Text('View Profile Picture'),
+            onTap: () async {
+              Hero(
+                tag: 'Profile Picture',
+                child: Image.asset(
+                    'http://myondb.com/myapp/profile/${widget.user.email}.jpg?dummy=${(number)}'),
+              );
+              Navigator.pop(context);
+            }),
+        ListTile(
+            leading: Icon(Icons.camera_enhance),
+            title: Text('Take profile picture'),
+            onTap: () async {
+              _image = await ImagePicker.pickImage(
+                  source: ImageSource.camera,
+                  imageQuality: 80,
+                  maxHeight: 450,
+                  maxWidth: double.infinity);
+              setState(() {});
+              Navigator.pop(context);
+            }),
+        ListTile(
+            leading: Icon(Icons.image),
+            title: Text('Choose from gallery'),
+            onTap: () async {
+              _image = await ImagePicker.pickImage(source: ImageSource.gallery);
+              setState(() {});
+              Navigator.pop(context);
+            }),
+      ],
+    );
+  }*/
+
   void _takePicture() async {
     if (widget.user.name == "not register") {
-      Toast.show("Not allowed, please login", context,
+      Toast.show("Not allowed", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // return object of type Dialog
+        //return object of type dialog
         return AlertDialog(
           title: new Text("Take new profile picture?"),
           content: new Text("Are your sure?"),
@@ -726,6 +958,36 @@ class _TabScreen4State extends State<TabScreen4> {
           ],
         );
       },
+    );
+  }
+}
+
+class DetailScreen extends StatefulWidget {
+  final User user;
+  const DetailScreen({Key key, this.user}) : super(key: key);
+
+  @override
+  _DetailScreenState createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.deepOrange,
+        centerTitle: true,
+        title: Text('Profile Picture'),
+      ),
+      body: Container(
+        child: Center(
+          child: Hero(
+            tag: 'Profile Picture',
+            child: Image.network(
+                "http://myondb.com/myapp/profile/${widget.user.email}.jpg?dummy=${(number)}'"),
+          ),
+        ),
+      ),
     );
   }
 }
