@@ -54,7 +54,7 @@ class _TabScreen4State extends State<TabScreen4> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          backgroundColor: Colors.orange[300],
+          //backgroundColor: Colors.orange[300],
           resizeToAvoidBottomPadding: false,
           body: ListView.builder(
               //Step 6: Count the data
@@ -744,16 +744,16 @@ class _DropdownExampleState extends State<DropdownExample> {
       child: DropdownButton<String>(
         items: [
           DropdownMenuItem<String>(
-            child: Text('50 HCredit (RM10)'),
-            value: '10',
+            child: Text('50 Credit (RM50)'),
+            value: '50',
           ),
           DropdownMenuItem<String>(
-            child: Text('100 HCredit (RM20)'),
-            value: '20',
+            child: Text('100 Credit (RM100)'),
+            value: '100',
           ),
           DropdownMenuItem<String>(
-            child: Text('150 HCredit (RM30)'),
-            value: '30',
+            child: Text('150 Credit (RM150)'),
+            value: '150',
           ),
         ],
         onChanged: (String value) {

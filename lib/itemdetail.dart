@@ -304,7 +304,7 @@ class _DetailInterfaceState extends State<DetailInterface> {
     String urlLoadItems = "http://myondb.com/myapp/php/accept_item.php";
     ProgressDialog pr = new ProgressDialog(context,
         type: ProgressDialogType.Normal, isDismissible: false);
-    pr.style(message: "Add to cart");
+    pr.style(message: "Purchase Item");
     pr.show();
     http.post(urlLoadItems, body: {
       "itemid": widget.item.itemid,

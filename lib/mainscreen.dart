@@ -26,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
     tabs = [
       TabScreen(user: widget.user),
       TabScreen3(user: widget.user),
-      TabScreen2(user: widget.user),
+      //TabScreen2(user: widget.user),
       TabScreen4(user: widget.user),
     ];
   }
@@ -61,10 +61,10 @@ class _MainScreenState extends State<MainScreen> {
             icon: Icon(Icons.assignment),
             title: Text("Purchases"),
           ),
-          BottomNavigationBarItem(
+         /* BottomNavigationBarItem(
             icon: Icon(Icons.directions_bus, ),
             title: Text("Delivery"),
-          ),
+          ),*/
           BottomNavigationBarItem(
             icon: Icon(Icons.person, ),
             title: Text("Profile"),

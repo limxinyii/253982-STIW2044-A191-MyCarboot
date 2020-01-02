@@ -159,8 +159,39 @@ class RegisterWidgetState extends State<RegisterWidget> {
   }
 
   void _choose() async {
-    _image = await ImagePicker.pickImage(source: ImageSource.camera,imageQuality: 80,maxHeight: 450,maxWidth: double.infinity);
-    setState(() {});
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return Container(
+            padding: EdgeInsets.all(40),
+            child: Wrap(
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.camera_alt),
+                  title: Text('Camera'),
+                  onTap: () async {
+                    _image =
+                        await ImagePicker.pickImage(source: ImageSource.camera,imageQuality: 80,maxHeight: 450,maxWidth: double.infinity);
+                    setState(() {});
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.photo_album),
+                  title: Text('Gallery'),
+                  onTap: () async {
+                    _image = await ImagePicker.pickImage(
+                        source: ImageSource.gallery,imageQuality: 80,maxHeight: 450,maxWidth: double.infinity);
+                    setState(() {});
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ),
+          );
+        });
+   // _image = await ImagePicker.pickImage(source: ImageSource.camera,imageQuality: 80,maxHeight: 450,maxWidth: double.infinity);
+    //setState(() {});
     //_image = await ImagePicker.pickImage(source: ImageSource.gallery);
   }
 
