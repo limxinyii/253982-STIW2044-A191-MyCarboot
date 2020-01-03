@@ -128,13 +128,13 @@ class _TabScreen3State extends State<TabScreen3> {
                                             Row(
                                               children: <Widget>[
                                                 Icon(
-                                                  Icons.credit_card,
+                                                  Icons.account_balance_wallet,
                                                 ),
                                                 SizedBox(
                                                   width: 5,
                                                 ),
                                                 Flexible(
-                                                  child: Text("You have " +
+                                                  child: Text("Balance: " +
                                                       widget.user.credit +
                                                       " Credit",
                                                       style: TextStyle(

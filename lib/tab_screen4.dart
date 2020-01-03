@@ -14,6 +14,7 @@ import 'package:lab_2/payment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'info.dart';
 import 'package:intl/intl.dart';
 import 'package:random_string/random_string.dart';
 
@@ -86,7 +87,7 @@ class _TabScreen4State extends State<TabScreen4> {
                                 height: 10,
                               ),
                               GestureDetector(
-                                // onTap: _takePicture,
+                                //onTap: _takePicture,
                                 onTap: _choose,
                                 child: Container(
                                     width: 150.0,
@@ -111,163 +112,66 @@ class _TabScreen4State extends State<TabScreen4> {
                                 ),
                               ),
                               SizedBox(height: 5),
-                              Card(
-                                color: Colors.white,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 6.0, horizontal: 25.0),
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.email,
-                                    color: Colors.orangeAccent,
-                                  ),
-                                  title: Text(
-                                    widget.user.email,
-                                    style: TextStyle(
-                                        fontFamily: 'Source Sans Pro'),
-                                  ),
-                                ),
+                              Info(
+                              icon: Icons.email,
+                              text: widget.user.email,
                               ),
-                              Card(
-                                color: Colors.white,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 6.0, horizontal: 25.0),
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.phone,
-                                    color: Colors.orangeAccent,
-                                  ),
-                                  title: Text(
-                                    widget.user.phone ?? 'not registered',
-                                    style: TextStyle(
-                                        fontFamily: 'Source Sans Pro'),
-                                  ),
-                                ),
+                              Info(
+                              icon: Icons.phone,
+                              text: widget.user.phone ?? 'not registered',
+                              onPressed: _changePhone,
                               ),
-                              Card(
-                                color: Colors.white,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 6.0, horizontal: 25.0),
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.credit_card,
-                                    color: Colors.orangeAccent,
-                                  ),
-                                  title: Text(
-                                    "You have " +
+                              Info(
+                              icon: Icons.account_balance_wallet,
+                              text: "Balance: " +
                                             widget.user.credit +
                                             " Credit" ??
-                                        "You have 0 Credit",
-                                    style: TextStyle(
-                                        fontFamily: 'Source Sans Pro'),
-                                  ),
-                                ),
+                                        "Balance: 0 Credit",
                               ),
-                              Card(
-                                color: Colors.white,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 6.0, horizontal: 25.0),
-                                child: ListTile(
-                                  leading: Icon(
-                                    Icons.location_on,
-                                    color: Colors.orangeAccent,
-                                  ),
-                                  title: Text(
-                                    _currentAddress,
-                                    style: TextStyle(
-                                        fontFamily: 'Source Sans Pro'),
-                                  ),
-                                ),
+                              Info(
+                              icon: Icons.location_on,
+                              text: _currentAddress,
                               ),
                               SizedBox(
-                                height: 25,
+                                height: 35,
                                 width: 250,
                                 child: Divider(
                                   color: Colors.deepOrange[700],
                                 ),
                               ),
-                              /*Container(
-                                color: Colors.deepOrange,
-                                padding: EdgeInsets.all(7.0),
-                                  margin: EdgeInsets.symmetric(vertical: 6.0, horizontal: 25.0),
-                                child: Center(
-                                  child: Text("My Profile ",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white)),
-                                ),
-                              ),*/
+                            Info(
+                              icon: Icons.edit,
+                              text: 'CHANGE NAME',
+                              onPressed: _changeName,
+                            ),
+                            Info(
+                              icon: Icons.lock,
+                              text: 'CHANGE PASSWORD',
+                              onPressed: _changePassword,
+                            ),
+                             Info(
+                              icon: Icons.account_balance_wallet,
+                              text: 'BUY CREDIT',
+                              onPressed: _loadPayment,
+                            ),
+                            Info(
+                              icon: Icons.account_box,
+                              text: 'REGISTER',
+                              onPressed: _registerAccount,
+                            ),
+                            Info(
+                              icon: Icons.open_in_new,
+                              text: 'LOG IN',
+                              onPressed: _gotologinPage,
+                            ),
+                             Info(
+                              icon: Icons.exit_to_app,
+                              text: 'LOG OUT',
+                              onPressed: _gotologout,
+                            ),
                             ],
                           ),
                         ]),
-                        /*SizedBox(
-                          height: 4,
-                        ),*/
-                      ],
-                    ),
-                  );
-                }
-                if (index == 1) {
-                  return Padding(
-                    padding: EdgeInsets.all(2.0),
-                    child: Column(
-                      children: <Widget>[
-                        MaterialButton(
-                          color: Colors.white,
-                          minWidth: 180,
-                          onPressed: _changeName,
-                          child: Text("CHANGE NAME"),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7.0)),
-                        ),
-                        MaterialButton(
-                          color: Colors.white,
-                          minWidth: 180,
-                          onPressed: _changePassword,
-                          child: Text("CHANGE PASSWORD"),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7.0)),
-                        ),
-                        MaterialButton(
-                          color: Colors.white,
-                          minWidth: 180,
-                          onPressed: _changePhone,
-                          child: Text("CHANGE PHONE"),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7.0)),
-                        ),
-                        MaterialButton(
-                          color: Colors.white,
-                          minWidth: 180,
-                          onPressed: _loadPayment,
-                          child: Text("BUY CREDIT"),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7.0)),
-                        ),
-                        MaterialButton(
-                          color: Colors.white,
-                          minWidth: 180,
-                          onPressed: _registerAccount,
-                          child: Text("REGISTER"),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7.0)),
-                        ),
-                        MaterialButton(
-                          color: Colors.white,
-                          minWidth: 180,
-                          onPressed: _gotologinPage,
-                          child: Text("LOG IN"),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7.0)),
-                        ),
-                        MaterialButton(
-                          color: Colors.white,
-                          minWidth: 180,
-                          onPressed: _gotologout,
-                          child: Text("LOG OUT"),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7.0)),
-                        )
                       ],
                     ),
                   );
@@ -312,7 +216,6 @@ class _TabScreen4State extends State<TabScreen4> {
                       setState(() {});
                     }),
                 Divider(
-                  thickness: 0,
                   color: Colors.grey[400],
                   indent: 0,
                 ),
@@ -330,7 +233,7 @@ class _TabScreen4State extends State<TabScreen4> {
                       Navigator.of(context).pop();
                       _image = await ImagePicker.pickImage(
                           source: ImageSource.camera,
-                          imageQuality: 60,
+                          imageQuality: 80,
                           maxWidth: double.infinity,
                           maxHeight: 450);
 
@@ -356,7 +259,6 @@ class _TabScreen4State extends State<TabScreen4> {
                   },
                 ),
                 Divider(
-                  thickness: 0,
                   color: Colors.grey[400],
                   indent: 0,
                 ),
@@ -402,106 +304,7 @@ class _TabScreen4State extends State<TabScreen4> {
             ),
           );
         });
-    /*showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            color: Color(0xFF737373),
-            height: 180,
-            child: Container(
-              child: _buildBottomNavigationMenu(),
-              decoration: BoxDecoration(
-                color: Theme.of(context).canvasColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(10),
-                  topRight: const Radius.circular(10),
-                ),
-              ),
-            ),
-          );
-        });*/
-    /*showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Take new profile picture?"),
-          content: new Text("Are your sure?"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Yes"),
-              onPressed: () async {
-                Navigator.of(context).pop();
-                _image =
-                    await ImagePicker.pickImage(source: ImageSource.camera);
-
-                String base64Image = base64Encode(_image.readAsBytesSync());
-                http.post(urluploadImage, body: {
-                  "encoded_string": base64Image,
-                  "email": widget.user.email,
-                }).then((res) {
-                  print(res.body);
-                  if (res.body == "success") {
-                    setState(() {
-                      number = new Random().nextInt(100);
-                      print(number);
-                    });
-                  } else {}
-                }).catchError((err) {
-                  print(err);
-                });
-              },
-            ),
-            new FlatButton(
-              child: new Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );*/
   }
-
-  /*Column _buildBottomNavigationMenu() {
-    return Column(
-      children: <Widget>[
-        ListTile(
-            leading: Icon(Icons.people),
-            title: Text('View Profile Picture'),
-            onTap: () async {
-              Hero(
-                tag: 'Profile Picture',
-                child: Image.asset(
-                    'http://myondb.com/myapp/profile/${widget.user.email}.jpg?dummy=${(number)}'),
-              );
-              Navigator.pop(context);
-            }),
-        ListTile(
-            leading: Icon(Icons.camera_enhance),
-            title: Text('Take profile picture'),
-            onTap: () async {
-              _image = await ImagePicker.pickImage(
-                  source: ImageSource.camera,
-                  imageQuality: 80,
-                  maxHeight: 450,
-                  maxWidth: double.infinity);
-              setState(() {});
-              Navigator.pop(context);
-            }),
-        ListTile(
-            leading: Icon(Icons.image),
-            title: Text('Choose from gallery'),
-            onTap: () async {
-              _image = await ImagePicker.pickImage(source: ImageSource.gallery);
-              setState(() {});
-              Navigator.pop(context);
-            }),
-      ],
-    );
-  }*/
 
   void _takePicture() async {
     if (widget.user.name == "not register") {
@@ -743,7 +546,7 @@ class _TabScreen4State extends State<TabScreen4> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Change phone for" + widget.user.name),
+          title: new Text("Edit Phone Number"),
           content: new TextField(
               keyboardType: TextInputType.phone,
               controller: phoneController,
@@ -802,7 +605,7 @@ class _TabScreen4State extends State<TabScreen4> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Register new account?"),
+          title: new Text("Register New Account?"),
           content: new Text("Are your sure?"),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
@@ -924,7 +727,7 @@ class _TabScreen4State extends State<TabScreen4> {
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
-          title: new Text("Buy Credit?"),
+          title: new Text("Buy Credit"),
           content: Container(
             height: 100,
             child: DropdownExample(),

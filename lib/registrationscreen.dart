@@ -280,7 +280,7 @@ class RegisterWidgetState extends State<RegisterWidget> {
         "phone": _phone,
       }).then((res) {
         print(res.statusCode);
-        if (res.body == "registered") {
+        if (res.body == "registered, please check your mailbox") {
         Toast.show(res.body, context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         _image = null;
@@ -300,8 +300,6 @@ class RegisterWidgetState extends State<RegisterWidget> {
       setState(() {
         _autoValidate = true;
       });
-     // Toast.show("Check your registration information", context,
-         // duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     }
   }
 
